@@ -1,0 +1,33 @@
+#!/bin/bash
+time CUDA_VISIBLE_DEVICES=2 python -m torch.distributed.launch  \
+--nproc_per_node 1 finetune_w2v2.py  \
+--output_dir=/data2_from_58175/wav2vec2_output/filteredbyctc_continue  \
+--report_to=tensorboard  \
+--logging_dir=/tsdata/wav2vec2_output/tensorboard/filteredbyctc_continue  \
+--num_train_epochs=10  \
+--logging_strategy=steps  \
+--logging_steps=10  \
+--logging_first_step  \
+--per_device_train_batch_size=4  \
+--per_device_eval_batch_size=1  \
+--gradient_accumulation_steps=4  \
+--save_total_limit=10  \
+--evaluation_strategy=epoch  \
+--save_strategy=steps  \
+--save_steps=1000  \
+--learning_rate=2e-4  \
+--lr_scheduler_type=linear  \
+--warmup_ratio=0.1  \
+--group_by_length  \
+--fp16=True  \
+--model_name_or_path=/data2_from_58175/huggingface/models/wav2vec-large-xlsr-53-init-minanyu-vocabs  \
+--dataset_path=/work/wav2vad_czc_Ali/wav2VAD/models/w2v2/hf_datasets \
+--processor_path=/work/wav2vad_czc_Ali/wav2VAD/models/w2v2/processor \
+--preprocessing_num_workers=8  \
+--dataloader_num_workers=8  \
+--freeze_feature_extractor=True  \
+--freeze_ALN=False  \
+--freeze_all_except_lm=False  \
+--speed_perturb=True  \
+--prediction_loss_only=False  \
+--verbose_log=False
