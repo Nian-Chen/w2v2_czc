@@ -25,7 +25,7 @@ sh dataset2trim.sh --dataset_path data_seg/tmp/dataset --trim_audio_outputdir /d
 
 time /tsdata/kaldi_utils/run.pl JOB=1:10 data_seg/tmp/log.JOB.txt sh run_trim_ffmpeg.sh --file_name data_seg/tmp/run_trim  --index JOB
 
-##2、将dataset转为huggingface的datasets类,用于微调训练
+## 2、将dataset转为huggingface的datasets类,用于微调训练
 time python make_hfdatasets.py  \
 --input_train_file=data_seg/tmp/dataset  \
 --save_path=./hf_datasets \
@@ -41,14 +41,14 @@ time python make_hfdatasets.py  \
 
 可传入input_train_file、input_dev_file、input_test_file
 
-##3、微调w2v2模型
+## 3、微调w2v2模型
 
 根据data_dir中的text构建词表lang_char.txt，转为vocab.json，并添加到processor_path中
 sh run_get_processor.sh --data_dir data_seg_train --processor_path processor
 
 sh run_finetune_w2v2.sh(自行更改脚本中参数)
 
-##3、w2v2_vad
+## 4、w2v2_vad(跳过、可用于对齐)
 sh run_wav2VAD.sh(自行更改脚本中参数)
 
 # requirement
