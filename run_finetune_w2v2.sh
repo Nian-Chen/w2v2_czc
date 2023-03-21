@@ -30,4 +30,5 @@ time CUDA_VISIBLE_DEVICES=2 python -m torch.distributed.launch  \
 --freeze_all_except_lm=False  \
 --speed_perturb=True  \
 --prediction_loss_only=False  \
+--eval_accumulation_steps=1 \
 --verbose_log=False
